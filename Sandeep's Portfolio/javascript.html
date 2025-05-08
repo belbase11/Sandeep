@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body style="background: linear-gradient(to right, #e8edf3, #f9fbfc); font-family: 'Segoe UI', sans-serif;">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">ePortfolio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="fullstack.html">Full Stack Development</a></li>
+        <li class="nav-item"><a class="nav-link" href="html.html">HTML</a></li>
+        <li class="nav-item"><a class="nav-link" href="css.html">CSS</a></li>
+        <li class="nav-item"><a class="nav-link" href="bootstrap.html">Bootstrap</a></li>
+        <li class="nav-item"><a class="nav-link" href="javascript.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-5 p-4 bg-white rounded-4 shadow" data-aos="fade-up">
+  <h2 class="fw-bold text-center text-dark mb-4">JavaScript: Powering Interactivity</h2>
+
+  <!-- Brief Intro -->
+  <section class="mb-4">
+    <p class="text-secondary">
+      JavaScript is the scripting language of the web. It makes websites interactive and dynamic—used in everything from buttons to backend servers.
+    </p>
+    <ul class="text-secondary">
+      <li>DOM manipulation</li>
+      <li>Form validation</li>
+      <li>API communication</li>
+      <li>Interactive effects</li>
+    </ul>
+  </section>
+
+  <!-- Greeting -->
+  <div class="text-center mb-4">
+    <input id="nameInput" type="text" class="form-control w-50 d-inline-block" placeholder="Type your name" oninput="countCharacters()" />
+    <small id="charCount" class="text-muted d-block mt-1"></small>
+    <button class="btn btn-primary mt-2" onclick="typeGreeting()">Greet Me</button>
+    <p class="mt-3 fw-semibold text-info" id="greetingText"></p>
+  </div>
+
+  <!-- Clock -->
+  <div class="text-center my-4">
+    <h5>🕒 Live Clock</h5>
+    <p id="clock" class="fs-4 fw-semibold text-dark"></p>
+    <button class="btn btn-sm btn-outline-dark" onclick="toggleFormat()">Toggle 12/24 Hour</button>
+  </div>
+
+  <!-- Fun Fact -->
+  <div class="text-center mt-5">
+    <button class="btn btn-success" onclick="showFunFact()">Show Fun Fact</button>
+    <p id="funFact" class="mt-3 text-info fw-semibold"></p>
+  </div>
+</div>
+
+<footer class="text-center">
+  &copy; 2025 My Full Stack ePortfolio | Built with HTML, CSS & Bootstrap
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  function countCharacters() {
+    const val = document.getElementById("nameInput").value;
+    document.getElementById("charCount").textContent = `Characters: ${val.length}`;
+  }
+
+  function typeGreeting() {
+    const name = document.getElementById("nameInput").value || "Guest";
+    const message = `Hello, ${name}! 👋`;
+    let i = 0;
+    const target = document.getElementById("greetingText");
+    target.textContent = "";
+    const interval = setInterval(() => {
+      if (i < message.length) {
+        target.textContent += message.charAt(i++);
+      } else {
+        clearInterval(interval);
+      }
+    }, 60);
+  }
+
+  let is24Hour = true;
+  function updateClock() {
+    const now = new Date();
+    let time = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: !is24Hour
+    });
+    document.getElementById("clock").textContent = time;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  function toggleFormat() {
+    is24Hour = !is24Hour;
+    updateClock();
+  }
+
+  const facts = [
+    "JavaScript was created in just 10 days!",
+    "JS powers over 98% of websites.",
+    "Node.js lets JS run on servers too!"
+  ];
+  let factIndex = 0;
+  function showFunFact() {
+    const fact = facts[factIndex];
+    document.getElementById("funFact").textContent = fact;
+    factIndex = (factIndex + 1) % facts.length;
+  }
+</script>
+</body>
+</html>
